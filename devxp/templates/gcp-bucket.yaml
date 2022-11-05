@@ -2,12 +2,11 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: bucket-template
-  title: S3 Bucket Template
-  description: Create a S3 Bucket on AWS
+  title: GCP Bucket Template
+  description: Create a  Bucket on GCP
 
   tags:
-    - aws
-    - s3
+    - gcp
     - infrastructure
     - bucket
     - resource
@@ -89,8 +88,8 @@ spec:
       action: fetch:template
       if: ${{ parameters.dryRun == false }}
       input:
-        targetPath: ./s3
-        url: https://github.com/devxp-tech/backstage-catalog/tree/main/devxp/skeleton/crossplane/s3
+        targetPath: ./gcp
+        url: https://github.com/jbbkj/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
         values:
           system: ${{ parameters.system }}
           owner: ${{ parameters.owner }}
@@ -101,13 +100,13 @@ spec:
       action: publish:github:pull-request
       if: ${{ parameters.dryRun == false }}
       input:
-        repoUrl: github.com?repo=gitops&owner=devxp-tech
-        branchName: create-${{ parameters.system }}-${{ parameters.env }}-s3
-        title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-s3'
+        repoUrl: github.com?repo=gitops&owner=jbbkj
+        branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
+        title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-gcp'
         description: |
           # New project: ${{ parameters.system }}
           ${{ parameters.description if parameters.description }}
-        sourcePath: s3
+        sourcePath: gcp
         targetPath: apps
 
     # - id: register
