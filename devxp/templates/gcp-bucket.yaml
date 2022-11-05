@@ -70,14 +70,9 @@ spec:
             - stg
             - prd
         bucket:
-          title: bucket Parameters
-          type: object
-          default: Postgres
-          properties:
-            type:
-              enum:
-              - MySQL
-              - Postgres
+          title: Bucket Parameters
+          type: string
+          description: Enter the name for Global GCP Bucket.
         dryRun:
           title: Only perform a dry run, don't publish anything
           type: boolean
