@@ -84,7 +84,7 @@ spec:
       if: ${{ parameters.dryRun == false }}
       input:
         targetPath: ./gcp
-        url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
+        url: https://github.com/kubeshot/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
         values:
           system: ${{ parameters.system }}
           owner: ${{ parameters.owner }}
@@ -96,9 +96,9 @@ spec:
       action: publish:github:pull-request
       if: ${{ parameters.dryRun == false }}
       input:
-        repoUrl: github.com?repo=gitops&owner=jatinsharma2132
-        branchName: create-${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp
-        title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
+        repoUrl: github.com?repo=gitops&owner=kubeshot
+        branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
+        title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-gcp'
         description: |
           # New project: ${{ parameters.system }}
           ${{ parameters.description if parameters.description }}
