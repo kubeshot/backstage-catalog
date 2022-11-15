@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
-  name: devxp-tech
-  description: DevXP Technology
+  name: Kubeshoot
+  description: Kubeshoot
 
   links:
     - url: http://www.devxp-tech.io/
@@ -12,7 +12,7 @@ metadata:
 spec:
   type: organization
   profile:
-    displayName: DevXP Tech
+    displayName: Kubeshoot
     email: it@devxp.io
     # picture: https://avatars.dicebear.com/api/identicon/info@example.com.svg?background=%23fff&margin=25
   children: [group:engineering]
