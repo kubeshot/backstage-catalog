@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: gcp-bucket-template-delete
   title: GCP Bucket Templates
-  description: Create/Delete a  Bucket on GCP
+  description: Delete a  Bucket on GCP
 
   tags:
     - gcp
@@ -15,7 +15,7 @@ spec:
   type: resource
 
   parameters:
-    - title: Provide some simple information
+    - title: Provide some simple information for resource deletion
       required:
         - system
         - lifecycle
@@ -62,7 +62,7 @@ spec:
       properties:
         env:
           title: Environment
-          description: 'Environment to create resources'
+          description: 'Environment to delete resources'
           type: string
           default: dev
           enum:
@@ -72,7 +72,7 @@ spec:
         bucket:
           title: Bucket Parameters
           type: string
-          description: Enter the name for Global GCP Bucket.
+          description: Enter the name for Global GCP Bucket which to be deleted.
         dryRun:
           title: Only perform a dry run, don't publish anything
           type: boolean
