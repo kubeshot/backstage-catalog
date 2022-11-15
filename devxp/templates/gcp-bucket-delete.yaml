@@ -102,7 +102,7 @@ spec:
         description: |
           # New project: ${{ parameters.system }}
           ${{ parameters.description if parameters.description }}
-        sourcePath: gcp
+        sourcePath: gcp-delete
         targetPath: apps
 
     # - id: register

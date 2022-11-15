@@ -1,3 +1,3 @@
 metadata:
-  name: ${{values.system}}-${{values.env}}-${{values.bucket}}-gcp is now deleted
+  name: ${{values.system}}-${{values.env}}-${{values.bucket}}-gcp
    
