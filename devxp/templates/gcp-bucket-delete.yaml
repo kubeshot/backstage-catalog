@@ -83,7 +83,7 @@ spec:
       action: fetch:template
       if: ${{ parameters.dryRun == false }}
       input:
-        targetPath: ./gcp-delete
+        targetPath: ./gcp
         url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
         values:
           system: ${{ parameters.system }}
@@ -99,10 +99,8 @@ spec:
         repoUrl: github.com?repo=gitops&owner=jatinsharma2132
         branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
         title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
-        description: |
-          # New project: ${{ parameters.system }}
-          ${{ parameters.description if parameters.description }}
-        sourcePath: gcp-delete
+        description: file deleted
+        sourcePath: gcp
         targetPath: apps
 
     # - id: register
