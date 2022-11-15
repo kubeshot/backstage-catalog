@@ -84,12 +84,12 @@ spec:
       if: ${{ parameters.dryRun == false }}
       input:
         targetPath: ./gcp-delete
-        url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
+        url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-delete
         values:
           system: ${{ parameters.system }}
           owner: ${{ parameters.owner }}
           env: ${{ parameters.env }}
-          #bucket: ${{parameters.bucket}}
+          bucket: ${{parameters.bucket}}
 
     - id: open-pr
       name: "Open PR in GitOps Repository"
@@ -102,7 +102,7 @@ spec:
         description: |
           # New project: ${{ parameters.system }}
           ${{ parameters.description if parameters.description }}
-        sourcePath: gcp
+        sourcePath: gcp-delete
         targetPath: apps
 
     # - id: register
