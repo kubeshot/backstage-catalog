@@ -99,9 +99,7 @@ spec:
         repoUrl: github.com?repo=gitops&owner=jatinsharma2132
         branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
         title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
-        description: |
-          # New project: ${{ parameters.system }}
-          ${{ parameters.description if parameters.description }}
+        description: resource file is now deleted
         sourcePath: gcp
         targetPath: apps
 
