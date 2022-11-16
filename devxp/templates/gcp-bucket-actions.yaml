@@ -1,7 +1,7 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: gcp-bucket-action-template
+  name: gcp-bucket-action
   title: GCP Bucket Action Templates
   description: Action on a Bucket on GCP
 
