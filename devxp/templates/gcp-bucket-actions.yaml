@@ -76,63 +76,66 @@ spec:
           title: Only perform a dry run, don't publish anything
           type: boolean
           default: false
-  steps:
-    - id: fetch-template
-      name: Fetch GCP Bucket Templates
-      action: fetch:template
-      if: ${{ parameters.policy == delete }}
-      #if: ${{ parameters.dryRun == false }}
-      input:
-          targetPath: ./gcp-delete
-          url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-delete
-          values:
-            system: ${{ parameters.system }}
-            owner: ${{ parameters.owner }}
-            env: ${{ parameters.env }}
-            bucket: ${{parameters.bucket}}
-    - id: fetch-template
-      name: Fetch GCP Bucket Templates
-      action: fetch:template          
-      if: ${{ parameters.policy == create }}
-      #if: ${{ parameters.dryRun == false }}
-      input:
-          targetPath: ./gcp
-          url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
-          values:
-            system: ${{ parameters.system }}
-            owner: ${{ parameters.owner }}
-            env: ${{ parameters.env }}
-            bucket: ${{parameters.bucket}}
-
-    - id: open-pr
-      name: "Open PR in GitOps Repository"
-      action: publish:github:pull-request
-      if: ${{ parameters.policy == delete }}
-        #if: ${{ parameters.dryRun == false }}
-      input:
-          repoUrl: github.com?repo=gitops&owner=jatinsharma2132
-          branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
-          title: ':robot: [backstage-bot] Deleted ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
-          description: |
-            # New project: ${{ parameters.system }}
-            ${{ parameters.description if parameters.description }}
-          sourcePath: gcp-delete
-          targetPath: apps
-
-    - id: open-pr
-      name: "Open PR in GitOps Repository"
-      action: publish:github:pull-request
-      if: ${{ parameters.policy == create }}
-      #if: ${{ parameters.dryRun == false }}
-      input:
-          repoUrl: github.com?repo=gitops&owner=jatinsharma2132
-          branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
-          title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
-          description: |
-            # New project: ${{ parameters.system }}
-            ${{ parameters.description if parameters.description }}
-          sourcePath: gcp
-          targetPath: apps
+          
+    - if: ${{ parameters.policy == create }}    
+      steps:
+        - id: fetch-template
+          name: Fetch GCP Bucket Templates
+          action: fetch:template          
+          if: ${{ parameters.policy == create }}
+          #if: ${{ parameters.dryRun == false }}
+          input:
+              targetPath: ./gcp
+              url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
+              values:
+                system: ${{ parameters.system }}
+                owner: ${{ parameters.owner }}
+                env: ${{ parameters.env }}
+                bucket: ${{parameters.bucket}}
+        - id: open-pr
+          name: "Open PR in GitOps Repository"
+          action: publish:github:pull-request
+          if: ${{ parameters.policy == create }}
+          #if: ${{ parameters.dryRun == false }}
+          input:
+              repoUrl: github.com?repo=gitops&owner=jatinsharma2132
+              branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
+              title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
+              description: |
+                # New project: ${{ parameters.system }}
+                ${{ parameters.description if parameters.description }}
+              sourcePath: gcp
+              targetPath: apps
+          
+    - if: ${{ parameters.policy == delete }}    
+      steps:
+        - id: fetch-template
+          name: Fetch GCP Bucket Templates
+          action: fetch:template
+          if: ${{ parameters.policy == delete }}
+          #if: ${{ parameters.dryRun == false }}
+          input:
+              targetPath: ./gcp-delete
+              url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-delete
+              values:
+                system: ${{ parameters.system }}
+                owner: ${{ parameters.owner }}
+                env: ${{ parameters.env }}
+                bucket: ${{parameters.bucket}}
+        - id: open-pr
+          name: "Open PR in GitOps Repository"
+          action: publish:github:pull-request
+          if: ${{ parameters.policy == delete }}
+            #if: ${{ parameters.dryRun == false }}
+          input:
+              repoUrl: github.com?repo=gitops&owner=jatinsharma2132
+              branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
+              title: ':robot: [backstage-bot] Deleted ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
+              description: |
+                # New project: ${{ parameters.system }}
+                ${{ parameters.description if parameters.description }}
+              sourcePath: gcp-delete
+              targetPath: apps
 
     - name: Results
       if: ${{ parameters.dryRun }}
