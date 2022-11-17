@@ -80,7 +80,7 @@ spec:
     - id: fetch-template
       name: Fetch GCP Bucket Templates
       action: fetch:template
-      if: ${{ parameters.policy == delete }}
+      if: ${{ parameters.policy == "delete" }}
       input:
           targetPath: ./gcp-delete
           url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-delete
@@ -92,7 +92,7 @@ spec:
     - id: fetch-template
       name: Fetch GCP Bucket Templates
       action: fetch:template          
-      if: ${{ parameters.policy == create }}
+      if: ${{ parameters.policy == "create" }}
       input:
           targetPath: ./gcp
           url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
@@ -105,7 +105,7 @@ spec:
     - id: open-pr
       name: "Open PR in GitOps Repository"
       action: publish:github:pull-request
-      if: ${{ parameters.policy == delete }}
+      if: ${{ parameters.policy == "delete" }}
       input:
           repoUrl: github.com?repo=gitops&owner=jatinsharma2132
           branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
@@ -119,7 +119,7 @@ spec:
     - id: open-pr
       name: "Open PR in GitOps Repository"
       action: publish:github:pull-request
-      if: ${{ parameters.policy == create }}
+      if: ${{ parameters.policy == "create" }}
       input:
           repoUrl: github.com?repo=gitops&owner=jatinsharma2132
           branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
