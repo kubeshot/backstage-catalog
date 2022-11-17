@@ -120,7 +120,6 @@ spec:
       name: "Open PR in GitOps Repository"
       action: publish:github:pull-request
       if: ${{ parameters.policy == create }}
-      #if: ${{ parameters.dryRun == false }}
       input:
           repoUrl: github.com?repo=gitops&owner=jatinsharma2132
           branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
