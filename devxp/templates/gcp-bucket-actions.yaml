@@ -80,7 +80,7 @@ spec:
     - id: fetch-template
       name: Fetch GCP Bucket Templates
       action: fetch:template
-      if: true
+      if: ${{ parameters.policy == delete }}
       input:
           targetPath: ./gcp-delete
           url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-delete
@@ -92,7 +92,7 @@ spec:
     - id: fetch-template
       name: Fetch GCP Bucket Templates
       action: fetch:template          
-      if: ${{ parameters.dryRun == false }}
+      if: ${{ parameters.policy == create }}
       input:
           targetPath: ./gcp
           url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
