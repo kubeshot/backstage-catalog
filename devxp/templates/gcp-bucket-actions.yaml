@@ -81,7 +81,6 @@ spec:
       name: Fetch GCP Bucket Templates
       action: fetch:template
       if: true
-      #if: ${{ parameters.dryRun == false }}
       input:
           targetPath: ./gcp-delete
           url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-delete
@@ -93,8 +92,7 @@ spec:
     - id: fetch-template
       name: Fetch GCP Bucket Templates
       action: fetch:template          
-      if: ${{ parameters.policy == create }}
-      #if: ${{ parameters.dryRun == false }}
+      if: ${{ parameters.dryRun == false }}
       input:
           targetPath: ./gcp
           url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
@@ -108,7 +106,6 @@ spec:
       name: "Open PR in GitOps Repository"
       action: publish:github:pull-request
       if: ${{ parameters.policy == delete }}
-        #if: ${{ parameters.dryRun == false }}
       input:
           repoUrl: github.com?repo=gitops&owner=jatinsharma2132
           branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
