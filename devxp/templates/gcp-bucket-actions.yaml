@@ -106,6 +106,13 @@ spec:
                 ${{ parameters.description if parameters.description }}
               sourcePath: gcp
               targetPath: apps
+      output:
+        links:
+          - title: Go to GitOps Pull Request
+            url: ${{ steps.open-pr.output.remoteUrl }}
+          - title: Open in catalog
+            icon: catalog
+            entityRef: ${{ steps.register.output.entityRef }}
           
     - if: ${{ parameters.policy == delete }}    
       steps:
@@ -136,17 +143,10 @@ spec:
                 ${{ parameters.description if parameters.description }}
               sourcePath: gcp-delete
               targetPath: apps
-
-    - name: Results
-      if: ${{ parameters.dryRun }}
-      action: debug:log
-      input:
-        listWorkspace: true
-
-  output:
-    links:
-      - title: Go to GitOps Pull Request
-        url: ${{ steps.open-pr.output.remoteUrl }}
-      - title: Open in catalog
-        icon: catalog
-        entityRef: ${{ steps.register.output.entityRef }}
+      output:
+        links:
+          - title: Go to GitOps Pull Request
+            url: ${{ steps.open-pr.output.remoteUrl }}
+          - title: Open in catalog
+            icon: catalog
+            entityRef: ${{ steps.register.output.entityRef }}
