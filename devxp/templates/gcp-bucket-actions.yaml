@@ -80,7 +80,7 @@ spec:
     - id: fetch-template
       name: Fetch GCP Bucket Templates
       action: fetch:template
-      if: ${{ parameters.policy == delete }}
+      if: true
       #if: ${{ parameters.dryRun == false }}
       input:
           targetPath: ./gcp-delete
