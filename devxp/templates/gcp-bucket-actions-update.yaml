@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: gcp-bucket-actions
   title: GCP Bucket Action Templates[Custom Functions]
-  description: Action on a Bucket on GCP with create , update and delete 
+  description: Action on a Bucket on GCP with create, update and delete 
 
   tags:
     - gcp
@@ -55,6 +55,7 @@ spec:
           enum:
             - create
             - delete
+            - update
   
 
     - title: Infrastructure
@@ -76,6 +77,28 @@ spec:
           title: Only perform a dry run, don't publish anything
           type: boolean
           default: false
+
+    - if: ${{ parameters.policy == "update" }}
+    - title: Infrastructure updation
+      properties:
+        env:
+          title: Environment
+          description: 'Environment to perform action resources'
+          type: string
+          default: dev
+          enum:
+            - dev
+            - stg
+            - prd
+        bucket:
+          title: Bucket Parameters
+          type: string
+          description: Enter the name for Global GCP Bucket.
+        dryRun:
+          title: Only perform a dry run, don't publish anything
+          type: boolean
+          default: false          
+
   steps:
     - id: fetch-template
       name: Fetch GCP Bucket Templates
