@@ -80,7 +80,7 @@ spec:
 
 
     - title: Infrastructure updation
-      if: ${{ parameters.policy == "update" }}
+      #if: ${{ parameters.policy == "update" }}
       properties:
         env:
           title: Environment
