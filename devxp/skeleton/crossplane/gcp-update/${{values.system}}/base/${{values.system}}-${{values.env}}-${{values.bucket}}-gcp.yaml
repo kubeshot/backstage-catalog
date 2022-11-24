@@ -31,8 +31,8 @@ spec:
       name: ${{values.bucket}}
     # member: serviceAccount:<my-sa-email>
     serviceAccountMemberRef:
-      name: perfect-test-sa
-    role: roles/storage.objectAdmin
+      name: ${{values.serviceaccount}}
+    role: ${{values.role}}
   providerConfigRef:
     name: default   
 

@@ -81,19 +81,15 @@ spec:
 
     - title: Infrastructure updation
       properties:
-        env:
-          title: Environment
-          description: 'Environment to perform action resources'
+        role:
+          title: Role for Bucket Policy Member
+          description: 'Role to attached to the bucket'
           type: string
-          default: dev
-          enum:
-            - dev
-            - stg
-            - prd
-        bucket:
-          title: Bucket Parameters
+          description: Enter the role for service account on the bucket.
+        serviceaccount:
+          title: Service Account for Bucket Policy Member
           type: string
-          description: Enter the name for Global GCP Bucket.
+          description: Enter the name for service account.
         dryRun:
           title: Only perform a dry run, don't publish anything
           type: boolean
@@ -137,6 +133,8 @@ spec:
             owner: ${{ parameters.owner }}
             env: ${{ parameters.env }}
             bucket: ${{parameters.bucket}}
+            role: ${{parameters.role}}
+            serviceaccount: ${{parameters.serviceaccount}}
 
     - id: open-pr
       name: "Open PR in GitOps Repository for Delete"
