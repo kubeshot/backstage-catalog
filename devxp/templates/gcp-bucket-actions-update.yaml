@@ -83,7 +83,6 @@ spec:
       properties:
         role:
           title: Role for Bucket Policy Member
-          description: 'Role to attached to the bucket'
           type: string
           description: Enter the role for service account on the bucket.
         serviceaccount:
