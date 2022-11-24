@@ -101,7 +101,7 @@ spec:
 
   steps:
     - id: fetch-template
-      name: Fetch GCP Bucket Templates
+      name: Fetch GCP Bucket Templates for Delete
       action: fetch:template
       if: ${{ parameters.policy == "delete" }}
       input:
@@ -113,12 +113,25 @@ spec:
             env: ${{ parameters.env }}
             bucket: ${{parameters.bucket}}
     - id: fetch-template
-      name: Fetch GCP Bucket Templates
+      name: Fetch GCP Bucket Templates for Create
       action: fetch:template          
       if: ${{ parameters.policy == "create" }}
       input:
           targetPath: ./gcp
           url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
+          values:
+            system: ${{ parameters.system }}
+            owner: ${{ parameters.owner }}
+            env: ${{ parameters.env }}
+            bucket: ${{parameters.bucket}}
+
+    - id: fetch-template
+      name: Fetch GCP Bucket Templates for Update
+      action: fetch:template          
+      if: ${{ parameters.policy == "update" }}
+      input:
+          targetPath: ./gcp
+          url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-update
           values:
             system: ${{ parameters.system }}
             owner: ${{ parameters.owner }}
@@ -152,6 +165,21 @@ spec:
             ${{ parameters.description if parameters.description }}
           sourcePath: gcp
           targetPath: apps
+
+
+    - id: open-pr
+      name: "Open PR in GitOps Repository"
+      action: publish:github:pull-request
+      if: ${{ parameters.policy == "update" }}
+      input:
+          repoUrl: github.com?repo=gitops&owner=jatinsharma2132
+          branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
+          title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
+          description: |
+            # New project: ${{ parameters.system }}
+            ${{ parameters.description if parameters.description }}
+          sourcePath: gcp-update
+          targetPath: apps          
 
     - name: Results
       if: ${{ parameters.dryRun }}
