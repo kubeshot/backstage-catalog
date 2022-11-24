@@ -130,7 +130,7 @@ spec:
       action: fetch:template          
       if: ${{ parameters.policy == "update" }}
       input:
-          targetPath: ./gcp
+          targetPath: ./gcp-update
           url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-update
           values:
             system: ${{ parameters.system }}
@@ -139,7 +139,7 @@ spec:
             bucket: ${{parameters.bucket}}
 
     - id: open-pr
-      name: "Open PR in GitOps Repository"
+      name: "Open PR in GitOps Repository for Delete"
       action: publish:github:pull-request
       if: ${{ parameters.policy == "delete" }}
       input:
@@ -153,7 +153,7 @@ spec:
           targetPath: apps
 
     - id: open-pr
-      name: "Open PR in GitOps Repository"
+      name: "Open PR in GitOps Repository for Create"
       action: publish:github:pull-request
       if: ${{ parameters.policy == "create" }}
       input:
@@ -168,7 +168,7 @@ spec:
 
 
     - id: open-pr
-      name: "Open PR in GitOps Repository"
+      name: "Open PR in GitOps  for Update"
       action: publish:github:pull-request
       if: ${{ parameters.policy == "update" }}
       input:
