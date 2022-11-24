@@ -1,1 +1,67 @@
-# The update template is working we did it 
+apiVersion: storage.gcp.crossplane.io/v1alpha3
+kind: Bucket
+metadata:
+  name: ${{values.system}}-${{values.env}}-${{values.bucket}}-gcp
+  labels:
+    example: "true"
+  annotations:
+    # Note that this will be the actual bucket name so it has to be globally unique/available.
+    crossplane.io/external-name: ${{values.bucket}}
+spec:
+  location: US
+  storageClass: MULTI_REGIONAL
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete
+
+
+---
+apiVersion: storage.gcp.crossplane.io/v1alpha1
+kind: BucketPolicyMember
+metadata:
+  name: ${{values.bucket}}
+  labels:
+    example: "true"
+  annotations:
+    # Note that this will be the actual bucket name so it has to be globally unique/available.
+    crossplane.io/external-name: ${{values.bucket}}
+spec:
+  forProvider:
+    bucketRef:
+      name: ${{values.bucket}}
+    # member: serviceAccount:<my-sa-email>
+    serviceAccountMemberRef:
+      name: perfect-test-sa
+    role: roles/storage.objectAdmin
+  providerConfigRef:
+    name: default   
+
+
+---
+apiVersion: storage.gcp.crossplane.io/v1alpha1
+kind: BucketPolicy
+metadata:
+  name: ${{values.bucket}}
+  labels:
+    example: "true"
+  annotations:
+    # Note that this will be the actual bucket name so it has to be globally unique/available.
+    crossplane.io/external-name: ${{values.bucket}}
+spec:
+  forProvider:
+    bucketRef:
+      name: ${{values.bucket}}
+    policy:
+      bindings:
+        - role: roles/storage.legacyBucketOwner
+          members:
+            - "projectEditor:jatin-devops-project"
+            - "projectOwner:jatin-devops-project"
+        - role: roles/storage.legacyBucketReader
+          members:
+            - "projectViewer:jatin-devops-project"
+        - role: roles/storage.objectAdmin
+          serviceAccountMemberRefs:
+            - name: perfect-test-sa
+  providerConfigRef:
+    name: default
