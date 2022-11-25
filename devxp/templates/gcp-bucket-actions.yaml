@@ -83,7 +83,7 @@ spec:
       if: ${{ parameters.policy == "delete" }}
       input:
           targetPath: ./gcp-delete
-          url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-delete
+          url: https://github.com/kubeshot/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp-delete
           values:
             system: ${{ parameters.system }}
             owner: ${{ parameters.owner }}
@@ -95,7 +95,7 @@ spec:
       if: ${{ parameters.policy == "create" }}
       input:
           targetPath: ./gcp
-          url: https://github.com/jbbkj-dev/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
+          url: https://github.com/kubeshot/backstage-catalog/tree/main/devxp/skeleton/crossplane/gcp
           values:
             system: ${{ parameters.system }}
             owner: ${{ parameters.owner }}
@@ -107,7 +107,7 @@ spec:
       action: publish:github:pull-request
       if: ${{ parameters.policy == "delete" }}
       input:
-          repoUrl: github.com?repo=gitops&owner=jatinsharma2132
+          repoUrl: github.com?repo=gitops&owner=kubeshot
           branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
           title: ':robot: [backstage-bot] Deleted ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
           description: |
@@ -121,7 +121,7 @@ spec:
       action: publish:github:pull-request
       if: ${{ parameters.policy == "create" }}
       input:
-          repoUrl: github.com?repo=gitops&owner=jatinsharma2132
+          repoUrl: github.com?repo=gitops&owner=kubeshot
           branchName: create-${{ parameters.system }}-${{ parameters.env }}-gcp
           title: ':robot: [backstage-bot] Create ${{ parameters.system }}-${{ parameters.env }}-${{parameters.bucket}}-gcp'
           description: |
